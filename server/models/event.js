@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectID } = require('mongodb');
 
 const Event = mongoose.model('Event', {
     start_date: {
@@ -11,7 +12,7 @@ const Event = mongoose.model('Event', {
         required: true,
         minlength: 1
     },
-    text: {
+    description: {
         type: String,
         required: true,
         minlength: 1
