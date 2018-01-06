@@ -1,6 +1,7 @@
 let express = require('express');
 let userRouter = express.Router();
 const { User } = require('../models/user');
+const { ObjectID } = require('mongodb');
 
 userRouter.post('/', (req, res) => {
     let userToSave = new User({
@@ -18,6 +19,15 @@ userRouter.post('/', (req, res) => {
 userRouter.get('/', (req, res) => {
 
     User.find().then(users => {
+        res.send({ users });
+    }).catch(e => {
+        res.status(400).send(e);
+    });
+});
+
+userRouter.post('/login', (req, res) => {
+
+    User.findOne({ username: req.body.username, password: req.body.password }).then(users => {
         res.send({ users });
     }).catch(e => {
         res.status(400).send(e);
